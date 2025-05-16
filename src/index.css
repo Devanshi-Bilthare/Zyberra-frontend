@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.neumorphic-light {
+  box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+  background: #e0e5ec;
+}
+
+.neumorphic-icon {
+  box-shadow: 6px 6px 12px #c5c9d6, -6px -6px 12px #ffffff;
+  background: #e0e5ec;
+  transition: all 0.2s ease-in-out;
+}
+
+.neumorphic-icon:hover {
+  transform: translateY(-2px);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
