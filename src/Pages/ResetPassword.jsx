@@ -1,26 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { forgotPassword, resetState } from "../features/user/UserSlice";
+import { resetPassword, resetState } from "../features/user/UserSlice";
 
-const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+const ResetPassword = () => {
+  const { token } = useParams();
+  const [newPassword, setNewPassword] = useState("");
+
   const dispatch = useDispatch();
-
   const { isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.user
   );
 
-  /*  Clear previous flags when the page mounts  */
   useEffect(() => {
     dispatch(resetState());
   }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!email) return;
-
-    dispatch(forgotPassword({ email }));
+    if (!newPassword || !token) return;
+    dispatch(resetPassword({ token, newPassword }));
   };
 
   return (
@@ -30,7 +29,7 @@ const ForgotPassword = () => {
         <div className="hidden md:block md:w-1/2">
           <img
             src="https://img.freepik.com/premium-vector/global-network-connection-abstract-concept-vector-illustration_107173-25598.jpg"
-            alt="forgot password"
+            alt="reset password"
             className="h-full w-full object-cover"
           />
         </div>
@@ -42,10 +41,10 @@ const ForgotPassword = () => {
           </h1>
 
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-            Reset Your Password
+            Create New Password
           </h2>
 
-          {/* feedback messages */}
+          {/* Feedback Messages */}
           {isError && (
             <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-center">
               {message || "Something went wrong. Try again."}
@@ -53,18 +52,18 @@ const ForgotPassword = () => {
           )}
           {isSuccess && (
             <div className="bg-green-100 text-green-700 px-4 py-2 rounded mb-4 text-center">
-              A reset link has been sent to your e-mail.
+              Password reset successful. You can now log in.
             </div>
           )}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="password"
+                name="newPassword"
+                placeholder="Enter new password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 required
                 className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
@@ -75,7 +74,7 @@ const ForgotPassword = () => {
               disabled={isLoading}
               className="mt-6 w-full py-2 bg-gray-200 text-gray-800 font-medium rounded-xl shadow-inner hover:bg-gray-300 transition duration-200"
             >
-              {isLoading ? "Sending..." : "Send Reset Link"}
+              {isLoading ? "Resetting..." : "Reset Password"}
             </button>
           </form>
 
@@ -90,4 +89,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;

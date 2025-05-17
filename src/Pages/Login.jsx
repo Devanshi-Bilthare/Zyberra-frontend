@@ -1,15 +1,47 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, resetState } from '../features/user/UserSlice';
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { isLoading, isError, isSuccess, user, message } = useSelector(
+    (state) => state.user
+  );
+
+  useEffect(() => {
+
+    if (isSuccess && user) {
+      navigate('/');
+    }
+  }, [dispatch, isSuccess, user, navigate]);
+
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(formData));
+  };
+
   return (
     <div className="w-full h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl rounded-xl overflow-hidden">
-
         {/* Left Image */}
         <div className="hidden md:block md:w-1/2">
           <img
-            src="https://img.freepik.com/premium-vector/global-network-connection-abstract-concept-vector-illustration_107173-25598.jpg?ga=GA1.1.1210803105.1747330783&semt=ais_hybrid&w=740"
+            src="https://img.freepik.com/premium-vector/global-network-connection-abstract-concept-vector-illustration_107173-25598.jpg"
             alt="login"
             className="h-full w-full object-cover"
           />
@@ -17,18 +49,30 @@ const Login = () => {
 
         {/* Login Form Section */}
         <div className="w-full md:w-1/2 bg-gray-100 p-8 flex flex-col justify-center">
-
           <h1 className="text-2xl font-semibold text-gray-800 px-4 py-2 text-center">
-            <Link to='/'>ZYBERRA</Link>
+            <Link to="/">ZYBERRA</Link>
           </h1>
 
-          <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Login to Your Account</h2>
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
+            Login to Your Account
+          </h2>
 
-          <form className="space-y-6">
+          {/* Error Message */}
+          {isError && (
+            <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-center">
+              {message}
+            </div>
+          )}
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="relative">
               <input
                 type="email"
+                name="email"
                 placeholder="Email"
+                value={formData.email}
+                onChange={handleChange}
+                required
                 className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
@@ -36,34 +80,38 @@ const Login = () => {
             <div className="relative">
               <input
                 type="password"
+                name="password"
                 placeholder="Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
                 className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 
-                        <p className="mt-2">
+            <p className="mt-2">
               Forgot password?{' '}
               <span className="text-blue-600 hover:underline cursor-pointer">
-                <Link to='/forgot-password'>Click here</Link>
+                <Link to="/forgot-password">Click here</Link>
               </span>
             </p>
 
             <button
               type="submit"
+              disabled={isLoading}
               className="mt-6 w-full py-2 bg-gray-200 text-gray-800 font-medium rounded-xl shadow-inner hover:bg-gray-300 transition duration-200"
             >
-              Login
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
           </form>
 
           <div className="mt-4 text-sm text-gray-700 text-center">
             <p>
-              Do not have an account?{' '}
+              Don't have an account?{' '}
               <Link to="/register" className="text-blue-600 hover:underline">
                 Register
               </Link>
             </p>
-
           </div>
         </div>
       </div>
