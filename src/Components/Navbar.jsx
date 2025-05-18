@@ -89,7 +89,7 @@ const Navbar = () => {
 
         <div className="flex items-center gap-4 relative" ref={userMenuRef}>
           <div className="neumorphic-icon p-2 rounded-full cursor-pointer">
-            <Heart className="h-5 w-5 text-gray-700" />
+            <Link to='/wishlist'><Heart className="h-5 w-5 text-gray-700" /></Link>
           </div>
           <div className="neumorphic-icon p-2 rounded-full cursor-pointer">
             <Link to='/cart'><ShoppingCart className="h-5 w-5 text-gray-700" /></Link>

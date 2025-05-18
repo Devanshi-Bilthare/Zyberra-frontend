@@ -1,14 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import  ProductSlice  from '../features/product/ProductSlice';
 import  CategorySlice  from '../features/category/CategorySlice';
-import searchReducer from '../features/search/searchSlice'
-import userReducer from '../features/user/UserSlice'
+import searchSlice from '../features/search/searchSlice'
+import userSlice from '../features/user/UserSlice'
+import CartSlice from '../features/cart/CartSLice';
+import WishListSlice from '../features/wishlist/WishListSlice';
 
 export const store = configureStore({
   reducer: {
     product: ProductSlice,
     category : CategorySlice,
-    search: searchReducer,
-    user:userReducer
+    search: searchSlice,
+    user:userSlice,
+    cart:CartSlice,
+    wishlist:WishListSlice
   },
 });
