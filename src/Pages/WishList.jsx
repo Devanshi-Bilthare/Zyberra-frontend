@@ -13,7 +13,7 @@ const WishList = () => {
 
 
   return (
-    <div className='mt-20'>
+    <div className='mt-30'>
       {
      
         wishList.wishList?.length == 0 ? 

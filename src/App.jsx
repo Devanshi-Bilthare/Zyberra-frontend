@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar';
 import ForgotPassword from './Pages/ForgotPassword';
 import PrivateRoute from './Components/PrivateRoute';
 import ResetPassword from './Pages/ResetPassword';
+import ProductDetail from './Pages/ProductDetail';
 
 const App = () => {
   const location = useLocation();
@@ -23,6 +24,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/cart' element={<PrivateRoute><Cart /></PrivateRoute>} />
         <Route path='/wishlist' element={<WishList />} />
+        <Route path='/product-detail/:id' element={<ProductDetail />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password/:token' element={<ResetPassword />} />

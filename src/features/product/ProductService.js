@@ -6,7 +6,11 @@ const GetAllProducts = async ()=>{
     return response.data
 }
 
+const GetSingleProduct = async(id) => {
+    const response = await axios.get(`${base_url}product/${id}`)
+    return response.data
+}
 
-const ProductService = {GetAllProducts}
+const ProductService = {GetAllProducts,GetSingleProduct}
 
 export default ProductService

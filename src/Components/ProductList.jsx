@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Heart, HeartOff } from 'lucide-react';
+import { Heart, HeartOff, Link } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishList, removeFromWishList, getWishList } from '../features/wishlist/WishListSlice'; // Adjust path if needed
+import { useNavigate } from 'react-router-dom';
 
 const ProductList = ({ products }) => {
   const [visibleCount, setVisibleCount] = useState(8); // Initial products to show
   const observerRef = useRef(null);
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const { wishList } = useSelector((state) => state.wishlist);
@@ -63,6 +65,7 @@ const ProductList = ({ products }) => {
               alt={product.name}
               loading="lazy"
               className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+              onClick={() => navigate(`/product-detail/${product._id}`)}
             />
           </div>
           <div className="px-2 py-1 flex justify-between items-center">
