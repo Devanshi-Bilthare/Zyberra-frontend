@@ -1,11 +1,27 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../features/user/UserSlice';
+import { register,reset } from '../features/user/UserSlice';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const dispatch = useDispatch();
   const { isLoading, isSuccess, isError, message } = useSelector((state) => state.user);
+  const navigate = useNavigate()
+
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message || "Registration failed.");
+    }
+
+    if (isSuccess) {
+      toast.success("Registration successful!");
+      navigate('/'); 
+    }
+
+    dispatch(reset()); 
+  }, [isError, isSuccess, message, dispatch, navigate]);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -96,9 +112,6 @@ const Register = () => {
             >
               {isLoading ? 'Registering...' : 'Register'}
             </button>
-
-            {isError && <p className="text-red-500 text-sm mt-2 text-center">Registration failed. Try again.</p>}
-            {isSuccess && <p className="text-green-600 text-sm mt-2 text-center">Registration successful!</p>}
           </form>
 
           <p className="mt-4 text-sm text-gray-700 text-center">

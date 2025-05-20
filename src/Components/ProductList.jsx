@@ -3,6 +3,8 @@ import { Heart, HeartOff, Link } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToWishList, removeFromWishList, getWishList } from '../features/wishlist/WishListSlice'; // Adjust path if needed
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { isLoggedIn } from '../utils/auth';
 
 const ProductList = ({ products }) => {
   const [visibleCount, setVisibleCount] = useState(8); // Initial products to show
@@ -24,14 +26,23 @@ const ProductList = ({ products }) => {
 
   // Toggle wishlist status
   const handleWishlistToggle = async (product) => {
+    if (!isLoggedIn()) {
+    toast.error("Please log in to manage your wishlist.");
+    return;
+  }
+    try {
     if (isWishlisted(product._id)) {
       await dispatch(removeFromWishList({ productId: product._id }));
     } else {
       await dispatch(addToWishList({ productId: product._id }));
     }
 
-    // Refresh wishlist
     dispatch(getWishList());
+  } catch (error) {
+    toast.error("Something went wrong. Please try again.");
+    console.error("Wishlist error:", error);
+  }
+
   };
 
   const visibleProducts = products?.slice(0, visibleCount);

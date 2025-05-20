@@ -18,6 +18,9 @@ const Navbar = () => {
     const value = e.target.value;
     setSearchInput(value);
     dispatch(setSearchQuery(value));
+    if (window.location.pathname !== '/') {
+    navigate('/');
+  }
   };
 
   const handleLogout = () => {

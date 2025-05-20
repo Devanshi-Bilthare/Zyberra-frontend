@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, resetState } from '../features/user/UserSlice';
+import { login, reset } from '../features/user/UserSlice';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -16,12 +17,21 @@ const Login = () => {
     (state) => state.user
   );
 
-  useEffect(() => {
+ useEffect(() => {
+    if (isError) {
+      toast.error(message || 'Login failed');
+    }
 
     if (isSuccess && user) {
+      toast.success('Login successful');
       navigate('/');
     }
-  }, [dispatch, isSuccess, user, navigate]);
+
+    // Reset state on unmount or after showing toast
+    return () => {
+      dispatch(reset());
+    };
+  }, [isError, isSuccess, user, message, navigate, dispatch]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -56,13 +66,6 @@ const Login = () => {
           <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
             Login to Your Account
           </h2>
-
-          {/* Error Message */}
-          {isError && (
-            <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-center">
-              {message}
-            </div>
-          )}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="relative">

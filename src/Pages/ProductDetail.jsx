@@ -8,6 +8,9 @@ import {
   removeFromWishList,
   getWishList,
 } from '../features/wishlist/WishListSlice';
+import { addToCart } from '../features/cart/CartSlice';
+import { toast } from 'react-toastify';
+import { isLoggedIn } from '../utils/auth';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -20,7 +23,7 @@ const ProductDetail = () => {
 
   useEffect(() => {
     dispatch(getSingleProduct(id));
-    dispatch(getWishList()); // Fetch wishlist when page loads
+    dispatch(getWishList());
   }, [id, dispatch]);
 
   useEffect(() => {
@@ -29,20 +32,46 @@ const ProductDetail = () => {
     }
   }, [product]);
 
-  // Check if the product is already in wishlist
   const isWishlisted = wishList?.wishList?.some(
     (item) => item._id === id || item.productId === id
   );
 
-  // Toggle wishlist
-  const handleWishlistToggle = async () => {
-    if (isWishlisted) {
-      await dispatch(removeFromWishList({ productId: id }));
-    } else {
-      await dispatch(addToWishList({ productId: id }));
+   const handleWishlistToggle = async () => {
+      if (!isLoggedIn()) {
+      toast.error("Please log in to manage your wishlist.");
+      return;
     }
-    dispatch(getWishList()); // Refresh wishlist after toggle
-  };
+      try {
+      if (isWishlisted) {
+        await dispatch(removeFromWishList({ productId: id }));
+      } else {
+        await dispatch(addToWishList({ productId: id }));
+      }
+  
+      dispatch(getWishList());
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      console.error("Wishlist error:", error);
+    }
+  
+    };
+
+  const handleAddToCart = async () => {
+  try {
+    const resultAction = await dispatch(addToCart({ productId: id }));
+
+    if (addToCart.fulfilled.match(resultAction)) {
+      toast.success("Item added to cart successfully!");
+    } else if (addToCart.rejected.match(resultAction)) {
+      console.log(resultAction)
+      const errorMessage = resultAction.payload?.response?.data?.message || "Failed to add item to cart.";
+      toast.error(errorMessage);
+    }
+  } catch (error) {
+    toast.error("Something went wrong while adding to cart.");
+    console.error("Add to Cart Error:", error);
+  }
+};
 
   return (
     <div className="mt-30 px-6 md:px-16">
@@ -78,10 +107,10 @@ const ProductDetail = () => {
           <p className="text-xl text-gray-700 font-medium">₹ {product.price}</p>
           <p className="text-sm text-gray-500">Category: {product.category?.name}</p>
           {product.quantity > 0 ? (
-  <p className="text-sm text-green-600">In Stock: {product.quantity}</p>
-) : (
-  <p className="text-sm text-red-600 font-medium">Out of Stock</p>
-)}
+            <p className="text-sm text-green-600">In Stock: {product.quantity}</p>
+          ) : (
+            <p className="text-sm text-red-600 font-medium">Out of Stock</p>
+          )}
 
           {/* Thumbnails */}
           <div className="flex gap-3 mt-6 flex-wrap">
@@ -103,16 +132,17 @@ const ProductDetail = () => {
           </div>
 
           {/* Add to Cart Button */}
-         <button
-  className={`mt-6 w-full md:w-[80%] py-4 text-lg transition ${
-    product.quantity > 0
-      ? 'bg-black text-white hover:bg-gray-900'
-      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-  }`}
-  disabled={product.quantity === 0}
->
-  Add
-</button>
+          <button
+            className={`mt-6 w-full md:w-[80%] py-4 text-lg transition ${
+              product.quantity > 0
+                ? 'bg-black text-white hover:bg-gray-900'
+                : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+            }`}
+            disabled={product.quantity === 0}
+            onClick={handleAddToCart}
+          >
+            Add
+          </button>
 
           {/* Description */}
           <div className="mt-6">

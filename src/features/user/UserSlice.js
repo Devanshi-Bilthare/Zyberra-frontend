@@ -56,7 +56,14 @@ export const resetState = createAction("Reset_all");
 export const UserSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    reset: (state) => {
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.message = '';
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(register.pending, (state) => {
@@ -75,6 +82,8 @@ export const UserSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
         state.user = null;
+       state.message =
+          action.payload?.response?.data?.message
       })
 
       .addCase(login.pending, (state) => {
@@ -84,6 +93,8 @@ export const UserSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.user = action.payload.user;
+
+        console.log(action)
 
         localStorage.setItem("token", action.payload.token);
         localStorage.setItem("user", JSON.stringify(action.payload.user));
@@ -133,7 +144,10 @@ export const UserSlice = createSlice({
         state.isError = true;
         state.isSuccess = false;
       });
+      
   },
 });
 
 export default UserSlice.reducer;
+
+export const { reset } = UserSlice.actions;
