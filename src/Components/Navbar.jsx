@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchQuery } from '../features/search/searchSlice';
 import { resetState } from '../features/user/UserSlice';
+import { isAdmin } from '../utils/auth';
 
 const Navbar = () => {
   const user = useSelector(state => state.user.user)
@@ -128,6 +129,13 @@ const Navbar = () => {
   >
     Logout
   </button>
+  {isAdmin() && <Link to='/admin/dashboard'
+    className="mx-4 mb-3 w-[calc(100%-2rem)] rounded-lg bg-[#e0e0e0] text-gray-700 
+               text-sm font-medium py-2 shadow-[4px_4px_8px_#bebebe,_-4px_-4px_8px_#ffffff]
+               hover:shadow-inner hover:text-gray-800 transition-all duration-200 text-center"
+  >
+    Admin DashBoard
+  </Link>}
 </>
       ) : (
         <>

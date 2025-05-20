@@ -1,5 +1,5 @@
 import axios from "axios";
-import { base_url } from "../../utils/base_url";
+import { base_url, getAuthConfig } from "../../utils/base_url";
 
 const GetAllProducts = async ()=>{
     const response = await axios.get(`${base_url}product/all`)
@@ -11,6 +11,11 @@ const GetSingleProduct = async(id) => {
     return response.data
 }
 
-const ProductService = {GetAllProducts,GetSingleProduct}
+const AddProduct = async(data) => {
+    const response = await axios.post(`${base_url}product/add`,data,getAuthConfig())
+    return response.data
+}
+
+const ProductService = {GetAllProducts,GetSingleProduct,AddProduct}
 
 export default ProductService

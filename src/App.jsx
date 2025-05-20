@@ -14,6 +14,12 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AdminRoute from './Components/AdminRoute';
 import DashBoard from './Pages/Admin/DashBoard';
+import AddProduct from './Pages/Admin/AddProduct';
+import ProductList from './Components/ProductList';
+import AddCategory from './Pages/Admin/AddCategory';
+import CategoryList from './Pages/Admin/CategoryList';
+import AllUsers from './Pages/Admin/AllUsers';
+import AllOrders from './Pages/Admin/AllOrders';
 
 
 const App = () => {
@@ -38,6 +44,13 @@ const App = () => {
 
         //admin routes
         <Route path='/admin/dashboard' element={<AdminRoute><DashBoard /></AdminRoute>} />
+        <Route path='/admin/add-product' element={<AdminRoute><AddProduct /></AdminRoute>} />
+        <Route path='/admin/product-list' element={<AdminRoute><ProductList /></AdminRoute>} />
+        <Route path='/admin/add-category' element={<AdminRoute><AddCategory /></AdminRoute>} />
+        <Route path='/admin/category-list' element={<AdminRoute><CategoryList /></AdminRoute>} />
+        <Route path='/admin/all-users' element={<AdminRoute><AllUsers /></AdminRoute>} />
+        <Route path='/admin/all-orders' element={<AdminRoute><AllOrders /></AdminRoute>} />
+
       </Routes>
     </>
   );
