@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCategory } from '../features/category/CategorySLice';
+import { getAllCategory } from '../features/category/CategorySlice';
 import SpinLoader from './SpinLoader';
 
 const CategoriesList = ({ onCategorySelect, selectedCategory }) => {
