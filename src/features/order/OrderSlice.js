@@ -17,6 +17,15 @@ export const verifyPayment = createAsyncThunk('order/verify',async(data,thunkApi
     }
 })
 
+export const getAllOrders = createAsyncThunk('order/all',async(thunkApi)=>{
+    try{
+        return await OrderService.GetAllOrders()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+
 const initialState = {
     order:[],
     isError:false,
@@ -60,7 +69,22 @@ export const OrderSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.paymentVerified = null
-        })       
+        })    
+        
+         .addCase(getAllOrders.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getAllOrders.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.order = action.payload
+        })
+        .addCase(getAllOrders.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.order = null
+        })    
     }
 })
 

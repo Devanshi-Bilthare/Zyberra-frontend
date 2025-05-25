@@ -25,10 +25,28 @@ export const addProdut = createAsyncThunk('product/add',async(data,thunkApi)=>{
     }
 })
 
+export const editProduct = createAsyncThunk('product/edit',async(data,thunkApi)=>{
+    try{
+        return await ProductService.EditProduct(data)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
+export const deleteProduct = createAsyncThunk('product/delete',async(id,thunkApi)=>{
+    try{
+        return await ProductService.DeleteProduct(id)
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 const initialState = {
     product:[],
     singleProduct:'',
     productAdded:null,
+    productEdited:null,
+    productDeleted:null,
     isError:false,
     isSuccess:false,
     isLoading:false,
@@ -86,6 +104,35 @@ export const ProductSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.productAdded = null
+        })  
+
+        .addCase(editProduct.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(editProduct.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.productEdited = action.payload
+        })
+        .addCase(editProduct.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.productEdited = null
+        })  
+        .addCase(deleteProduct.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(deleteProduct.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.productDeleted = action.payload
+        })
+        .addCase(deleteProduct.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.productDeleted = null
         })  
         .addCase(resetState, () => initialState);
     }

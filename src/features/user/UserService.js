@@ -21,6 +21,11 @@ const ResetPassword = async(data) => {
     return response.data
 }
 
-const UserService = {Register,Login,ForgotPassword,ResetPassword}
+const AllUsers = async() => {
+    const response = await axios.get(`${base_url}user/all`)
+    return response.data
+}
+
+const UserService = {Register,Login,ForgotPassword,ResetPassword,AllUsers}
 
 export default UserService

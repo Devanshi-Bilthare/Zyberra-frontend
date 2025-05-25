@@ -26,6 +26,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     dispatch(getAllCategory());
+    resetState()
   }, [dispatch]);
 
   useEffect(() => {

@@ -16,6 +16,17 @@ const AddProduct = async(data) => {
     return response.data
 }
 
-const ProductService = {GetAllProducts,GetSingleProduct,AddProduct}
+const EditProduct = async(data) => {
+    const response = await axios.put(`${base_url}product/edit/${data.id}`,data.data,getAuthConfig())
+    return response.data
+}
+
+const DeleteProduct = async(id) => {
+    const response = await axios.delete(`${base_url}product/delete/${id}`,getAuthConfig())
+    return response.data
+}
+
+
+const ProductService = {GetAllProducts,GetSingleProduct,AddProduct,EditProduct,DeleteProduct}
 
 export default ProductService

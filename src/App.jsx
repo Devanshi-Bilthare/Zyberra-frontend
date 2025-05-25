@@ -15,11 +15,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import AdminRoute from './Components/AdminRoute';
 import DashBoard from './Pages/Admin/DashBoard';
 import AddProduct from './Pages/Admin/AddProduct';
-import ProductList from './Components/ProductList';
-import AddCategory from './Pages/Admin/AddCategory';
+import ProductList from './Pages/Admin/ProductList';
 import CategoryList from './Pages/Admin/CategoryList';
 import AllUsers from './Pages/Admin/AllUsers';
 import AllOrders from './Pages/Admin/AllOrders';
+import EditProduct from './Pages/Admin/EditProduct';
 
 
 const App = () => {
@@ -46,8 +46,8 @@ const App = () => {
         <Route path='/admin/dashboard' element={<AdminRoute><DashBoard /></AdminRoute>} />
         <Route path='/admin/add-product' element={<AdminRoute><AddProduct /></AdminRoute>} />
         <Route path='/admin/product-list' element={<AdminRoute><ProductList /></AdminRoute>} />
-        <Route path='/admin/add-category' element={<AdminRoute><AddCategory /></AdminRoute>} />
-        <Route path='/admin/category-list' element={<AdminRoute><CategoryList /></AdminRoute>} />
+        <Route path='/admin/product-detail/:id' element={<AdminRoute><EditProduct /></AdminRoute>} />
+        <Route path='/admin/all-categories' element={<AdminRoute><CategoryList /></AdminRoute>} />
         <Route path='/admin/all-users' element={<AdminRoute><AllUsers /></AdminRoute>} />
         <Route path='/admin/all-orders' element={<AdminRoute><AllOrders /></AdminRoute>} />
 

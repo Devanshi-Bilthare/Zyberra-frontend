@@ -4,7 +4,6 @@ import {
   Box,
   Users,
   ClipboardList,
-  Tags,
   Menu as MenuIcon,
   X as CloseIcon,
 } from 'lucide-react';
@@ -24,23 +23,43 @@ export default function Sidebar() {
     setSidebarOpen(false);
   }, [location]);
 
+  // Lock body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }, [sidebarOpen]);
+
   return (
-    <div className='fixed'>
+    <>
       {/* Mobile menu toggle button */}
-      <div className="md:hidden p-4 bg-[#e0e5ec] shadow-md">
-        <button onClick={() => setSidebarOpen(!sidebarOpen)}>
-          {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+      <div className="md:hidden p-4 bg-[#e0e5ec] shadow-md fixed top-0 left-0 right-0 z-50 flex justify-start">
+        <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle sidebar">
+          {sidebarOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`fixed md:static top-0 left-0 h-screen w-64 bg-[#e0e5ec] p-4 shadow-neumorphic text-gray-800 transform transition-transform duration-300 z-50
-        ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}
+        className={`fixed md:static top-0 left-0 h-screen w-64 bg-[#e0e5ec] p-4 shadow-neumorphic text-gray-800 transform transition-transform duration-300 z-40
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0
+          overflow-y-auto pt-16 md:pt-4`}
       >
-        <h1 className="text-2xl font-bold mb-6 hidden md:block"><Link to='/admin/dashboard'>Dashboard</Link></h1>
+         <h1 className="text-2xl font-semibold text-gray-800 mb-4">
+                  <Link to="/">ZYBERRA</Link>
+          </h1>
 
-        {/* Products */}
+        <Link
+          to="/admin/dashboard"
+          className="mb-4 neumorphic-icon px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <Users size={18} />
+          DashBoard
+        </Link>
+
+
         <div className="mb-4">
           <div
             className="flex justify-between items-center cursor-pointer neumorphic-light px-4 py-2 rounded-md mb-1"
@@ -52,64 +71,54 @@ export default function Sidebar() {
             </span>
             <ChevronDown
               size={18}
-              className={`transform transition-transform ${
-                openMenu === 'product' ? 'rotate-180' : ''
-              }`}
+              className={`${openMenu === 'product' ? 'rotate-180' : ''} transition-transform`}
             />
           </div>
           {openMenu === 'product' && (
             <div className="ml-6 flex flex-col gap-2">
-              <Link to='/admin/add-product' className="neumorphic-icon px-4 py-2 rounded-md cursor-pointer">Add Product</Link>
-              <Link to='/admin/product-list' className="neumorphic-icon px-4 py-2 rounded-md cursor-pointer">Product List</Link>
+              <Link to="/admin/add-product" className="neumorphic-icon px-4 py-2 rounded-md">
+                Add Product
+              </Link>
+              <Link to="/admin/product-list" className="neumorphic-icon px-4 py-2 rounded-md">
+                Product List
+              </Link>
             </div>
           )}
         </div>
 
-        {/* Categories */}
-        <div className="mb-4">
-          <div
-            className="flex justify-between items-center cursor-pointer neumorphic-light px-4 py-2 rounded-md mb-1"
-            onClick={() => toggleMenu('category')}
-          >
-            <span className="flex items-center gap-2">
-              <Tags size={18} />
-              Categories
-            </span>
-            <ChevronDown
-              size={18}
-              className={`transform transition-transform ${
-                openMenu === 'category' ? 'rotate-180' : ''
-              }`}
-            />
-          </div>
-          {openMenu === 'category' && (
-            <div className="ml-6 flex flex-col gap-2">
-              <Link to='/admin/add-category' className="neumorphic-icon px-4 py-2 rounded-md cursor-pointer">Add Category</Link>
-              <Link to='/admin/category-list' className="neumorphic-icon px-4 py-2 rounded-md cursor-pointer">Category List</Link>
-            </div>
-          )}
-        </div>
+        <Link
+          to="/admin/all-categories"
+          className="mb-4 neumorphic-icon px-4 py-2 rounded-md flex items-center gap-2"
+        >
+          <Users size={18} />
+          All Categories
+        </Link>
 
-        {/* All Users */}
-        <Link to='/admin/all-users' className="mb-4 neumorphic-icon px-4 py-2 rounded-md cursor-pointer flex items-center gap-2">
+        <Link
+          to="/admin/all-users"
+          className="mb-4 neumorphic-icon px-4 py-2 rounded-md flex items-center gap-2"
+        >
           <Users size={18} />
           All Users
         </Link>
 
-        {/* All Orders */}
-        <Link to='/admin/all-orders' className="mb-4 neumorphic-icon px-4 py-2 rounded-md cursor-pointer flex items-center gap-2">
+        <Link
+          to="/admin/all-orders"
+          className="mb-4 neumorphic-icon px-4 py-2 rounded-md flex items-center gap-2"
+        >
           <ClipboardList size={18} />
           All Orders
         </Link>
       </div>
 
-      {/* Backdrop overlay for mobile */}
+      {/* Backdrop */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-30 z-40 md:hidden"
+          className="fixed inset-0 bg-black opacity-30 z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
+          aria-hidden="true"
         />
       )}
-    </div>
+    </>
   );
 }

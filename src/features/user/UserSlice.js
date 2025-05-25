@@ -42,9 +42,21 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
+export const allUsers = createAsyncThunk(
+  "user/all",
+  async ( thunkApi) => {
+    try {
+      return await UserService.AllUsers();
+    } catch (err) {
+      return thunkApi.rejectWithValue(err);
+    }
+  }
+);
+
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
+  allUsers:[],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -143,7 +155,22 @@ export const UserSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
-      });
+      })
+
+      .addCase(allUsers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(allUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.allUsers = action.payload;
+      })
+      .addCase(allUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.allUsers = null
+      })
       
   },
 });

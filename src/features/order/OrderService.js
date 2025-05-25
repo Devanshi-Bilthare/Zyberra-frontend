@@ -11,5 +11,11 @@ const VerifyPayment = async (paymentData) => {
   return response.data;
 };
 
-const OrderService = { CreateOrder, VerifyPayment };
+const GetAllOrders = async ()=>{
+    const response = await axios.get(`${base_url}order/all`,getAuthConfig())
+    return response.data
+}
+
+
+const OrderService = { CreateOrder, VerifyPayment,GetAllOrders };
 export default OrderService;
