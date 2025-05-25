@@ -3,7 +3,7 @@ import  ProductSlice  from '../features/product/ProductSlice';
 import  CategorySlice  from '../features/category/CategorySlice';
 import searchSlice from '../features/search/searchSlice'
 import userSlice from '../features/user/UserSlice'
-import CartSlice from '../features/cart/CartSLice';
+import CartSlice from '../features/cart/CartSlice';
 import WishListSlice from '../features/wishlist/WishListSlice';
 import OrderSlice from '../features/order/OrderSlice';
 
