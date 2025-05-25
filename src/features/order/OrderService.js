@@ -16,6 +16,11 @@ const GetAllOrders = async ()=>{
     return response.data
 }
 
+const GetStats = async ()=>{
+    const response = await axios.get(`${base_url}order/stats`,getAuthConfig())
+    return response.data
+}
 
-const OrderService = { CreateOrder, VerifyPayment,GetAllOrders };
+
+const OrderService = { CreateOrder, VerifyPayment,GetAllOrders,GetStats };
 export default OrderService;

@@ -25,6 +25,14 @@ export const getAllOrders = createAsyncThunk('order/all',async(thunkApi)=>{
     }
 })
 
+export const getStats = createAsyncThunk('order/stats',async(thunkApi)=>{
+    try{
+        return await OrderService.GetStats()
+    }catch(err){
+        return thunkApi.rejectWithValue(err)
+    }
+})
+
 
 const initialState = {
     order:[],
@@ -84,7 +92,22 @@ export const OrderSlice = createSlice({
             state.isError=true
             state.isSuccess = false
             state.order = null
-        })    
+        })   
+        
+          .addCase(getStats.pending,(state)=>{
+            state.isLoading = true
+        })
+        .addCase(getStats.fulfilled,(state,action)=>{
+            state.isLoading = false
+            state.isSuccess = true
+            state.stats = action.payload
+        })
+        .addCase(getStats.rejected,(state,action)=>{
+            state.isLoading = false
+            state.isError=true
+            state.isSuccess = false
+            state.stats = null
+        })   
     }
 })
 
