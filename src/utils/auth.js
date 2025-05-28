@@ -8,7 +8,6 @@ export const isLoggedIn = () => {
 
 export const isAdmin = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  // return user?.role === "admin";
-  return true
+  return user?.role === "admin";
 };
 
