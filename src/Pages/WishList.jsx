@@ -18,7 +18,7 @@ const WishList = () => {
      
         wishList.wishList?.length == 0 ? 
         ( <div className="flex items-center justify-center h-64">
-          <div className="px-6 py-4 bg-gray-100 rounded-xl shadow-neumorphic text-gray-600 font-medium">
+          <div className="px-6 py-4 rounded-xl text-gray-600 font-medium">
             Wish List is Empty
           </div>
         </div>) :  <ProductList products={wishList.wishList}/>

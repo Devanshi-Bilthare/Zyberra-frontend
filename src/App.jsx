@@ -22,15 +22,16 @@ import AllOrders from './Pages/Admin/AllOrders';
 import EditProduct from './Pages/Admin/EditProduct';
 
 
-const App = () => {
+const App = ({toggleTheme, isDark}) => {
   const location = useLocation();
-  const hideNavbarPaths = ['/login', '/register','/forgot-password','/reset-password'];
-  const hideNavbar = location.pathname.startsWith('/admin') || hideNavbarPaths.includes(location.pathname);
+  const hideNavbarPaths = ['/login', '/register','/forgot-password'];
+  const hideNavbar = location.pathname.startsWith('/admin') || hideNavbarPaths.includes(location.pathname) ||
+  location.pathname.startsWith('/reset-password');
 
 
   return (
     <>
-      {!hideNavbar && <Navbar />}
+      {!hideNavbar && <Navbar toggleTheme={toggleTheme} isDark={isDark} />}
       <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
         <Route path='/' element={<Home />} />

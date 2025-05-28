@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="w-full h-screen flex items-center justify-center  px-4">
       <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl rounded-xl overflow-hidden">
         {/* Left Image */}
         <div className="hidden md:block md:w-1/2">
@@ -76,7 +76,7 @@ const Login = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full bg-transparent border-b border-gray-400 focus:outline-none text-gray-900 focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 
@@ -88,11 +88,11 @@ const Login = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full text-gray-900 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 
-            <p className="mt-2">
+            <p className="mt-2 text-gray-900">
               Forgot password?{' '}
               <span className="text-blue-600 hover:underline cursor-pointer">
                 <Link to="/forgot-password">Click here</Link>

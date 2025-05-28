@@ -43,7 +43,7 @@ const Register = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="w-full h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-5xl flex flex-col md:flex-row shadow-xl rounded-xl overflow-hidden">
         <div className="hidden md:block md:w-1/2">
           <img
@@ -68,7 +68,7 @@ const Register = () => {
                 placeholder="Full Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full text-gray-900 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 
@@ -79,7 +79,7 @@ const Register = () => {
                 placeholder="Email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full text-gray-900 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 
@@ -90,7 +90,7 @@ const Register = () => {
                 placeholder="Mobile Number"
                 value={formData.mobileNumber}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full text-gray-900 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 
@@ -101,7 +101,7 @@ const Register = () => {
                 placeholder="Password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full text-gray-900 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 

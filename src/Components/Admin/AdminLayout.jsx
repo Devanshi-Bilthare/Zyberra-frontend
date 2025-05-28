@@ -7,7 +7,7 @@ const AdminLayout = ({ children }) => {
       <Sidebar />
 
       <main
-        className="ml-0 flex-1 overflow-auto bg-gray-100 p-4 pt-16 md:pt-4"
+        className="ml-0 flex-1 overflow-auto bg-gray-100 p-4 pt-16 md:pt-4 text-gray-900"
         style={{ height: '100vh' }}
       >
         {children}

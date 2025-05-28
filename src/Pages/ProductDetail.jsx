@@ -91,7 +91,7 @@ const ProductDetail = () => {
         <div className="w-full md:w-[45%] px-2 flex flex-col justify-start gap-4">
           {/* Title & Heart Icon */}
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold text-gray-800">{product.name}</h2>
+            <h2 className="text-2xl font-semibold">{product.name}</h2>
             {isWishlisted ? (
               <HeartOff
                 className="text-red-500 cursor-pointer"
@@ -104,8 +104,8 @@ const ProductDetail = () => {
               />
             )}
           </div>
-          <p className="text-xl text-gray-700 font-medium">₹ {product.price}</p>
-          <p className="text-sm text-gray-500">Category: {product.category?.name}</p>
+          <p className="text-xl font-medium">₹ {product.price}</p>
+          <p className="text-sm ">Category: {product.category?.name}</p>
           {product.quantity > 0 ? (
             <p className="text-sm text-green-600">In Stock: {product.quantity}</p>
           ) : (
@@ -146,8 +146,8 @@ const ProductDetail = () => {
 
           {/* Description */}
           <div className="mt-6">
-            <h3 className="text-lg font-semibold text-gray-800">Product Description</h3>
-            <p className="text-sm text-gray-600 mt-2 leading-relaxed">{product.description}</p>
+            <h3 className="text-lg font-semibold ">Product Description</h3>
+            <p className="text-sm mt-2 leading-relaxed">{product.description}</p>
           </div>
         </div>
       </div>

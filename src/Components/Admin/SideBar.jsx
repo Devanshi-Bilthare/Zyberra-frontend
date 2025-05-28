@@ -35,7 +35,7 @@ export default function Sidebar() {
   return (
     <>
       {/* Mobile menu toggle button */}
-      <div className="md:hidden p-4 bg-[#e0e5ec] shadow-md fixed top-0 left-0 right-0 z-50 flex justify-start">
+      <div className="md:hidden p-4 bg-[#e0e5ec] text-gray-900 shadow-md fixed top-0 left-0 right-0 z-50 flex justify-start">
         <button onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle sidebar">
           {sidebarOpen ? <CloseIcon size={24} /> : <MenuIcon size={24} />}
         </button>

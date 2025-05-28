@@ -23,7 +23,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="w-full h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-4xl flex flex-col md:flex-row shadow-xl rounded-xl overflow-hidden">
         {/* Left Image */}
         <div className="hidden md:block md:w-1/2">
@@ -65,7 +65,7 @@ const ResetPassword = () => {
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required
-                className="w-full bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
+                className="w-full text-gray-900 bg-transparent border-b border-gray-400 focus:outline-none focus:border-gray-700 placeholder-gray-600 py-2"
               />
             </div>
 

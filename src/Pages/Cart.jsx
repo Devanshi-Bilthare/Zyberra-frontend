@@ -70,17 +70,17 @@ const Cart = () => {
 
               {/* Product Info */}
               <div className="flex-1 flex flex-col gap-1">
-                <p className="text-xs font-semibold text-gray-500">ZYBERRA</p>
-                <h3 className="text-lg font-semibold text-gray-800">{item.product.name}</h3>
-                <p className="text-sm text-gray-600">Category: {item.product.category}</p>
-                <p className="text-sm text-gray-600">Price: ₹{item.product.price}</p>
-                <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
-                <p className="text-sm text-gray-800 font-semibold">
+                <p className="text-xs font-semibold ">ZYBERRA</p>
+                <h3 className="text-lg font-semibold ">{item.product.name}</h3>
+                <p className="text-sm ">Category: {item.product.category}</p>
+                <p className="text-sm ">Price: ₹{item.product.price}</p>
+                <p className="text-sm ">Quantity: {item.quantity}</p>
+                <p className="text-sm font-semibold">
                   Total: ₹{item.product.price * item.quantity}
                 </p>
 
                 {/* Quantity Controls */}
-                <div className="flex items-center border border-black px-2 py-1 w-fit mt-2 rounded">
+                <div className="flex items-center border border px-2 py-1 w-fit mt-2 rounded">
                   <button
                     onClick={() => updateQuantity(item.product._id, -1)}
                     className="text-lg px-2"

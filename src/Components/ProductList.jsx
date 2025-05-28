@@ -81,8 +81,8 @@ const ProductList = ({ products }) => {
           </div>
           <div className="px-2 py-1 flex justify-between items-center">
             <div>
-              <h3 className="text-sm font-medium text-gray-800">{product.name}</h3>
-              <p className="text-sm text-black">₹ {product.price}</p>
+              <h3 className="text-sm font-medium ">{product.name}</h3>
+              <p className="text-sm ">₹ {product.price}</p>
             </div>
             {isWishlisted(product._id) ? (
               <HeartOff

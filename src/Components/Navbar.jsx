@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ShoppingCart, Heart, User, Mic } from 'lucide-react';
+import { ShoppingCart, Heart, User, Mic, MoonIcon, Sun } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchQuery } from '../features/search/searchSlice';
 import { resetState } from '../features/user/UserSlice';
 import { isAdmin } from '../utils/auth';
 
-const Navbar = () => {
+const Navbar = ({toggleTheme,isDark}) => {
   const user = useSelector(state => state.user.user)
   const dispatch = useDispatch();
   const [searchInput, setSearchInput] = useState('');
@@ -92,6 +92,13 @@ const Navbar = () => {
         </h1>
 
         <div className="flex items-center gap-4 relative" ref={userMenuRef}>
+          <button
+          onClick={toggleTheme}
+          className="text-gray-900 cursor-pointer"
+        >
+          {isDark ? <Sun/> : <MoonIcon/>}
+        </button>
+
           <div className="neumorphic-icon p-2 rounded-full cursor-pointer">
             <Link to='/wishlist'><Heart className="h-5 w-5 text-gray-700" /></Link>
           </div>
@@ -110,7 +117,7 @@ const Navbar = () => {
           {/* Popup Menu */}
          {userMenuOpen && (
   <div
-    className="absolute top-full right-0 mt-2 w-64 bg-gray-100 border border-gray-300 rounded-xl shadow-neumorphic z-50"
+    className="absolute top-full right-0 mt-2 w-64 bg-gray-100 border border-gray-300 rounded-xl  z-50"
   >
     <ul className="flex flex-col py-2 px-4">
       {user ? (
